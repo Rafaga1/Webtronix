@@ -1,6 +1,6 @@
 # Описание
 
-Скачайте с git репазитория по ссылке [http://example.com/](http://example.com/ "ссылка на скачивание с git")
+Скачайте с git репазитория по ссылке [[http://example.com/](https://github.com/Rafaga1/Webtronix)]([http://example.com/](https://github.com/Rafaga1/Webtronix) "ссылка на скачивание с git")
 
 В терменале перейдите в папку где находится файл **docker-compose.yml**
 Запустите команду: 
