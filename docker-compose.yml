@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "web"
+      POSTGRES_PASSWORD: "web"
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#    volumes:
+#      - ./app:/app
+#    entrypoint: sh /app/
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+    environment:
+      DB_HOST: "postgres"
+      DB_USER: "web"
+      DB_PASS: "web"
+      DB_NAME: "postgres"
+    command: bash -c "ls -l &&
+             cd /app &&
+             alembic upgrade head &&
+             uvicorn main:app --host 0.0.0.0 --port 8000"
+
+    restart: always
+    depends_on:
+      - "postgres"

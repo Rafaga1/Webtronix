@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "24c45160-b4f3-495d-bb68-14d79df22266",
+		"name": "Webtronix",
+		"description": "API for an imaginary E-Commerce store to demonstrate API Builder capabilities in Postman\n\nContact Support:\n Name: Postman Team\n Email: simplekart@postman.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11408934"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "создание учетной записи",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "company_id",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "access-token",
+								"value": "e1a89712-8b6d-4e17-8131-f1a3b3dc7a28",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refresh-token",
+								"value": "7a43895b-3826-4cd4-9f68-a844be4e7b4b",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin1@mail.ru\",\n    \"name\": \"admin1\",\n    \"password\": \"admin1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/sign-up",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "информация о пользователе",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "227e2d62-43ec-4d6e-8478-c755c301b2b1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"email\": \"user@example.com\",\n  \"name\": \"string\",\n  \"token\": {\n           \"token\": \"a97e455a-be8a-4d52-83d7-151b0eebbfa2\",\n           \"expires\": \"2023-01-23T10:42:33.343224\"}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/users/me",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"token\": \"b63bdd0e-748e-476a-87f7-ac59f194412c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/logout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "user@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/auth",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "add new post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code should be 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var response=pm.response.json();",
+									"",
+									"var responseSchema={",
+									"    \"type\": \"object\",",
+									"    \"title\": \"Order\",",
+									"    \"description\": \"This is an Order object\",",
+									"    \"required\": [",
+									"        \"orderId\",",
+									"        \"items\",",
+									"        \"arrivalDate\",",
+									"        \"orderDate\",",
+									"        \"orderTotal\",",
+									"        \"address\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"orderId\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"items\": {",
+									"            \"type\": \"array\",",
+									"            \"title\": \"Item\",",
+									"            \"description\": \"This is an Item object\",",
+									"            \"required\": [",
+									"                \"itemId\",",
+									"                \"name\",",
+									"                \"price\",",
+									"                \"description\"",
+									"            ],",
+									"            \"properties\": {",
+									"                \"itemId\": {",
+									"                    \"type\": \"integer\"",
+									"                },",
+									"                \"name\": {",
+									"                    \"type\": \"string\"",
+									"                },",
+									"                \"price\": {",
+									"                    \"type\": \"integer\"",
+									"                },",
+									"                \"description\": {",
+									"                    \"type\": \"string\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"arrivalDate\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"orderDate\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"orderTotal\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"address\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test(\"response has valid schema\",function(){",
+									"    pm.expect(tv4.validate(response, responseSchema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"current_user\":{\n                    \"id\": 1,\n                    \"email\": \"user@example.com\",\n                    \"name\": \"string\",\n                    \"token\": {\n                            \"token\": \"a97e455a-be8a-4d52-83d7-151b0eebbfa2\",\n                            \"expires\": \"2023-01-23T10:42:33.343224\",\n                            \"token_type\": \"bearer\"\n    }},\n       \"post\":{\n               \"title\": \"Заголовок2\",\n               \"content\": \"Текст поста\",\n               \"user_id\": 1\n              }\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/posts",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"posts"
+							]
+						},
+						"description": "Post item order to orders database"
+					},
+					"response": []
+				},
+				{
+					"name": "get all posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code should be 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response=pm.response.json();",
+									"",
+									"var responseSchema={",
+									"    \"type\": \"object\",",
+									"    \"title\": \"Order\",",
+									"    \"description\": \"This is an Order object\",",
+									"    \"required\": [",
+									"        \"orderId\",",
+									"        \"items\",",
+									"        \"arrivalDate\",",
+									"        \"orderDate\",",
+									"        \"orderTotal\",",
+									"        \"address\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"orderId\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"items\": {",
+									"            \"type\": \"object\",",
+									"            \"title\": \"Item\",",
+									"            \"description\": \"This is an Item object\",",
+									"            \"required\": [",
+									"                \"itemId\",",
+									"                \"name\",",
+									"                \"price\",",
+									"                \"description\"",
+									"            ],",
+									"            \"properties\": {",
+									"                \"itemId\": {",
+									"                    \"type\": \"integer\"",
+									"                },",
+									"                \"name\": {",
+									"                    \"type\": \"string\"",
+									"                },",
+									"                \"price\": {",
+									"                    \"type\": \"integer\"",
+									"                },",
+									"                \"description\": {",
+									"                    \"type\": \"string\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"arrivalDate\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"orderDate\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"orderTotal\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"address\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test(\"response has valid schema\",function(){",
+									"    pm.expect(tv4.validate(response, responseSchema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/posts",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"posts"
+							]
+						},
+						"description": "Obtain item details from the database"
+					},
+					"response": []
+				},
+				{
+					"name": "like post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"like\": {\n    \"post\": 1,\n    \"like\": false\n  },\n \"current_user\":{\n  \"id\": 1,\n  \"email\": \"user2@example.com\",\n  \"name\": \"string2\",\n  \"token\": {\n           \"token\": \"ee4d65c9-6216-4ac3-b763-04761e996dc1\",\n           \"expires\": \"2023-01-23T10:42:33.343224\"}\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/posts_like",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"posts_like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "post_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/posts",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"post_data\": {\n    \"id\": 1,\n    \"title\": \"string2112\",\n    \"content\": \"string\",\n    \"created_at\": \"2023-01-09T08:47:58.856Z\",\n    \"user_id\": 0\n  },\n   \"current_user\":{\n  \"id\": 1,\n  \"email\": \"user2@example.com\",\n  \"name\": \"string2\",\n  \"token\": {\n           \"token\": \"a97e455a-be8a-4d52-83d7-151b0eebbfa2\",\n           \"expires\": \"2023-01-23T10:42:33.343224\"}\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/posts_edit?",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"posts_edit"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
